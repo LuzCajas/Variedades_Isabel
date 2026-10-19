@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contenido %}
+				<!-- Main -->
+					<div id="main" class="alt">
+
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h1>{{ producto.nombre }}</h1>
+									</header>
+									<span class="image main"><img src="{{ producto.imagen.url }}" alt="" /></span>
+                                    <p>{{ producto.descripcion }}</p>
+                                    <h2>Precio: Q{{ producto.precio }}</h2>
+									<ul class="actions">
+										<li><a href="{% url 'modulos:agregar_al_carrito' producto.id %}" class="button next">Agregar al Carrito</a></li>
+									</ul>
+								</div>
+							</section>
+
+					</div>
+
+				<!-- Three -->
+				{% if request.user.is_staff %}
+					<section id="two">
+						<div class="inner">
+							<header class="major">
+							<h2>Acciones</h2>
+							</header>
+							<ul class="actions">
+								<li><a href="{% url 'modulos:editarproductoapp' producto.id %}" class="button">Editar Producto</a></li>
+							</ul>
+							<ul class="actions">
+								<li>
+									<form id="formEliminar" action="{% url 'modulos:eliminar_producto' producto.id %}" method="post" style="display:inline;">
+										{% csrf_token %}
+										<button type="button" class="button" style="background-color:#d9534f; border:none;"
+												onclick="confirmarEliminacion()">
+											- Eliminar Producto
+										</button>
+									</form>
+								</li>
+							</ul>
+
+							<script>
+							function confirmarEliminacion() {
+								if (confirm("¿Estás seguro de eliminar este producto?")) {
+									document.getElementById('formEliminar').submit();
+								}
+							}
+							</script>
+						</div>
+					</section>
+				{% endif %}
+
+</html>
+{% endblock %}

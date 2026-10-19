@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contenido %}
+				<!-- Banner -->
+					<section id="banner" class="major">
+						<div class="inner">
+							<header class="major">
+								<h1>Variedades Isabel</h1>
+							</header>
+							<div class="content">
+								<p>“Tu estilo, nuestra variedad. 
+									Encuentra las prendas que buscas y disfruta de una experiencia de compra fácil y cómoda.”</p>
+								<ul class="actions">
+									<li><a href="#one" class="button next scrolly">Comenzar</a></li>
+								</ul>
+							</div>
+						</div>
+					</section>
+
+				<!-- Main -->
+				<div id="main">
+
+                <!-- One -->
+                <section id="one" class="tiles">
+                    {% for categoria in categorias %}
+                    <article>
+                        <span class="image">
+                            <img src="{% static 'images/pic0{{ forloop.counter }}.jpg' %}" alt=" " />
+                        </span>
+                        <header class="major">
+                            <h3><a href="{% url 'modulos:modulosapp' %}?categoria={{ categoria.id }}" class="link">{{ categoria.nombre }}</a></h3>
+                            <p>{{ categoria.descripcion|truncatewords:10 }}</p>
+                        </header>
+                    </article>
+						{% empty %}
+						<p>No hay categorías registradas.</p>
+                    {% endfor %}
+                </section>
+
+                    <!-- Two -->
+                        <section id="two">
+                            <div class="inner">
+                                <header class="major">
+                                    <h2>Tu estilo comienza aquí..</h2>
+                                </header>
+                                <p>En Variedades Isabel encontrarás mucho más que ropa: descubrirás prendas 
+									pensadas para acompañarte en cada momento y ayudarte a expresar tu propio estilo.
+									Ya sea que busques un atuendo para una ocasión especial, prendas para el día a día o simplemente quieras 
+									renovar tu guardarropa, en Variedades Isabel encontrarás opciones para toda la familia.</p>
+								{% if request.user.is_authenticated %}
+									<p style="color: white; font-size: 1.1em; margin-top: 1em;">
+										Bienvenid@, {{ request.user.first_name|default:request.user.username }} !
+									</p>
+
+									{% if request.user.is_staff %}
+										<ul class="actions">
+											<li><a href="{% url 'home:crearcategoriaapp' %}" class="button">+ Agregar Categoría</a></li>
+										</ul>
+									{% endif %}
+
+								{% else %}
+									<ul class="actions">
+										<li><a href="{% url 'home:loginapp' %}" class="button next">Iniciar Sesión</a></li>
+									</ul>
+								{% endif %}
+                            </div>
+                        </section>
+
+                </div>
+</html>
+{% endblock %}

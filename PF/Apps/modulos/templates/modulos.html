@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contenido %}
+				<!-- Banner -->
+				<!-- Note: The "styleN" class below should match that of the header element. -->
+					<section id="banner" class="style2">
+						<div class="inner">
+							<span class="image">
+								<img src="{% static 'images/pic07.jpg' %}" alt="" />
+							</span>
+							<header class="major">
+								<h1>{{categoria.nombre}}</h1>
+							</header>
+						</div>
+					</section>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h2>Estilo que va contigo:</h2>
+									</header>
+									<div class="content">
+										<p>{{categoria.descripcion}}</p>
+									</div>
+								</div>
+							</section>
+
+                        <!-- Two -->
+                        <section id="two" class="spotlights">
+                            {% for producto in productos %}
+                            <section>
+                                <a href="{% url 'modulos:detalleapp' producto.id %}" class="image">
+                                    {% if producto.imagen %}
+                                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" data-position="center center" />
+                                    {% else %}
+                                        <img src="{% static 'images/default.jpg' %}" alt="Sin imagen" data-position="center center" />
+                                    {% endif %}
+                                </a>
+                                <div class="content">
+                                    <div class="inner">
+                                        <header class="major">
+                                            <h3>{{ producto.nombre }}</h3>
+                                        </header>
+                                        <p>{{ producto.descripcion|truncatewords:20 }}</p>
+                                        <ul class="actions">
+                                            <li><a href="{% url 'modulos:detalleapp' producto.id %}" class="button">+ Ver Más</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+                            {% empty %}
+                            <p>No hay productos registrados.</p>
+                            {% endfor %}
+                        </section>
+
+					<!-- Three -->
+					{% if request.user.is_staff %}
+                        <section id="two">
+                            <div class="inner">
+                                <header class="major">
+                                <h2>Acciones</h2>
+                                </header>
+                                <ul class="actions">
+                                    <li><a href="{% url 'home:editarcategoriaapp' categoria.id %}" class="button next">Editar Categoría</a></li>
+                                </ul>
+								<ul class="actions">
+                                    <li><a href="{% url 'modulos:crearproductoapp' %}" class="button ">+ Agregar Producto</a></li>
+                                </ul>
+                            </div>
+                        </section>
+					</div>	
+					{% endif %}					
+</html>
+{% endblock %}

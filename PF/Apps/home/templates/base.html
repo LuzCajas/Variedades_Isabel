@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Variedades Isabel</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+		<link rel="shortcut icon" href="{% static 'images/logo.png' %}" type="">
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<a href="{% url 'home:homeapp' %}" class="logo"><strong>Variedades Isabel</strong> <span>Tienda en Linea</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<ul class="links">
+						<li><a href="{% url 'home:homeapp' %}">Home</a></li>
+						<li><a href="#one">Productos</a></li>
+						<li><a href="{% url 'modulos:ver_carrito'%}">Carrito de Compras</a></li>
+						<li><a href="{% url 'modulos:historial_pedidos'%}">Historial</a></li>
+					</ul>
+					<ul class="actions stacked">
+						{% if user.is_authenticated %}
+							<li><a href="{% url 'home:logoutapp' %}" class="button primary fit">Cerrar Sesión</a></li>
+						{% else %}
+							<li><a href="{% url 'home:loginapp' %}" class="button primary fit">Iniciar Sesión</a></li>
+						{% endif %}
+					</ul>
+				</nav>
+                {% block contenido%}
+                {% endblock %}
+				<!-- Contact -->
+					<section id="contact">
+						<div class="inner">
+							<section class="split">
+								<section>
+									<div class="contact-method">
+										<span class="icon solid alt fa-envelope"></span>
+										<h3>Email</h3>
+										<a href="#">info@variedadesisabel.com</a>
+									</div>
+								</section>
+								<section>
+									<div class="contact-method">
+										<span class="icon solid alt fa-phone"></span>
+										<h3>Telefono</h3>
+										<span>+502 4550 2789</span>
+									</div>
+								</section>
+								<section>
+									<div class="contact-method">
+										<span class="icon solid alt fa-home"></span>
+										<h3>Direccion</h3>
+										<span>Quetzaltenango,<br />
+										Quetzaltenango<br />
+										Guatemala</span>
+									</div>
+								</section>
+							</section>
+						</div>
+					</section>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="icons">
+								<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+							</ul>
+							<ul class="copyright">
+								<li>&copy; Variedades Isabel</li><li>Design: <a href="">Luz Cajas</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>
